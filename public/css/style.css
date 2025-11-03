@@ -1,0 +1,36 @@
+/* Navbar */
+
+.navbar {
+  height: 4.5rem !important;
+}
+
+.nav-link {
+  color: #222222 !important;
+}
+
+/* Footer */
+
+.footer {
+  background-color: #F8F9FA;
+}
+
+.fa-brands {
+  font-size: 1.3rem;
+}
+
+/* Show EJS */
+
+.card-img-top {
+  height: 20rem;
+}
+
+.card-text li {
+  list-style-type: none !important;
+}
+
+.btn-show {
+  width: 6rem !important;
+  margin: 0 0 1rem 1rem;
+}
+
+/* Edit EJS */
