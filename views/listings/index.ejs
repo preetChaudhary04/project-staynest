@@ -1,13 +1,21 @@
 <% layout("/layouts/boilerplate") %>
 
   <body>
-    <h3>All Listings</h3>
     <br>
-    <% for(let listing of allListings) { %>
-      <li>
-        <a href="/listings/<%= listing._id %>">
-          <%= listing.title %>
-        </a>
-      </li>
-      <% } %>
+    <div class="row gap-0">
+      <% for(let listing of allListings) { %>
+        <div class="col-md-4 col-sm-6 mb-3 custom-card">
+          <div class="card h-lg-100">
+            <img src="<%= listing.image %>" class="card-img-top" alt="listing-image">
+            <div class="card-body">
+              <h5 class="card-title">
+                <%= listing.title %>
+              </h5>
+              <!-- <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card’s content.</p> -->
+              <a href="/listings/<%= listing._id %>" class="btn btn-primary">Show</a>
+            </div>
+          </div>
+        </div>
+        <% } %>
+    </div>
   </body>

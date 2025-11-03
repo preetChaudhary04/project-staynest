@@ -18,6 +18,46 @@
   font-size: 1.3rem;
 }
 
+/* Index EJS */
+
+.custom-card {
+  height: 60% !important;
+  /* default for large screens */
+}
+
+/* Medium screens (tablets) */
+@media (max-width: 992px) {
+  .custom-card {
+    max-height: 40% !important;
+  }
+}
+
+/* Small screens (mobiles) */
+@media (max-width: 768px) {
+  .custom-card {
+    max-height: 40% !important;
+  }
+}
+
+/* Extra small screens */
+@media (max-width: 576px) {
+  .custom-card {
+    max-height: 30% !important;
+  }
+}
+
+.custom-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease !important;
+  cursor: pointer;
+}
+
+.custom-card:hover {
+  transform: translateY(-5px) scale(1.03);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2) !important;
+}
+
+
+
 /* Show EJS */
 
 .card-img-top {

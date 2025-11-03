@@ -12,9 +12,10 @@ const listingSchema = new mongoose.Schema({
   image: {
     type: String,
     required: true,
+    default: "https://images.pexels.com/photos/164558/pexels-photo-164558.jpeg",
     set: (v) =>
       v === ""
-        ? "https://www.freepik.com/free-vector/beautiful-home_4979878.htm#fromView=keyword&page=1&position=5&uuid=aaedc8d9-d35f-433e-8cee-5f459d6aa0b9&query=House"
+        ? "https://images.pexels.com/photos/164558/pexels-photo-164558.jpeg"
         : v,
   },
   price: {
