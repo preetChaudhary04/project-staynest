@@ -4,38 +4,56 @@
     <div class="row">
       <div class="col-6 offset-3">
         <h3 class="mt-2 mb-2">Edit your form</h3>
-        <form method="POST" action="/listings/<%= listing._id %>?_method=PUT">
+        <form class="needs-validation" method="POST" action="/listings/<%= listing._id %>?_method=PUT" novalidate>
 
           <div>
             <label for="title" class="form-label fw-semibold">Enter title</label>
-            <input class="form-control" type="text" name="listing[title]" value="<%= listing.title %>">
+            <input class="form-control" type="text" name="listing[title]" value="<%= listing.title %>" required>
+            <div class="invalid-feedback">
+              Please choose a title.
+            </div>
           </div>
 
           <div>
             <label for="description" class="form-label fw-semibold">Enter description</label>
-            <textarea class="form-control" name="listing[description]"><%= listing.description %></textarea>
+            <textarea class="form-control" name="listing[description]" required><%= listing.description %></textarea>
+            <div class="invalid-feedback">
+              Please add a description.
+            </div>
           </div>
 
           <div>
             <label for="image" class="form-label fw-semibold">Enter Image link/URL</label>
-            <input class="form-control" type="text" name="listing[image]" value="<%= listing.image %>">
+            <input class="form-control" type="text" name="listing[image]" value="<%= listing.image %>" required>
+            <div class="invalid-feedback">
+              You cannot leave this field blank while editing.
+            </div>
           </div>
 
           <div class="row">
             <div class="col-md-4">
               <label for="price" class="form-label fw-semibold">Enter price</label>
-              <input class="form-control" type="number" name="listing[price]" value="<%= listing.price %>">
+              <input class="form-control" type="number" name="listing[price]" value="<%= listing.price %>" required>
+              <div class="invalid-feedback">
+                Please enter a valid price.
+              </div>
             </div>
 
             <div class="col-md-8">
               <label for="location" class="form-label fw-semibold">Enter location</label>
-              <input class="form-control" type="text" name="listing[location]" value="<%= listing.location %>">
+              <input class="form-control" type="text" name="listing[location]" value="<%= listing.location %>" required>
+              <div class="invalid-feedback">
+                Please enter a valid location.
+              </div>
             </div>
           </div>
 
           <div>
             <label for="country" class="form-label fw-semibold">Enter country</label>
-            <input class="form-control" type="text" name="listing[country]" value="<%= listing.country %>">
+            <input class="form-control" type="text" name="listing[country]" value="<%= listing.country %>" required>
+            <div class="invalid-feedback">
+              Please choose a country.
+            </div>
           </div>
 
           <button class="btn btn-dark mt-3">Edit</button>
