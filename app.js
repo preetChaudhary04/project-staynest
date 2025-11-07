@@ -7,6 +7,20 @@ const ejsMate = require("ejs-mate");
 const ExpressError = require("./utils/ExpressError.js");
 const listingsRoutes = require("./routes/listingsRoutes.js");
 const reviewsRoute = require("./routes/reviewsRoutes.js");
+const cookieParser = require("cookie-parser");
+const session = require("express-session");
+const flash = require("express-flash");
+
+const sessionOptions = {
+  secret: "mySessionSecret",
+  resave: false,
+  saveUninitialized: true,
+  cookie: {
+    expires: Date.now() + 7 * 24 * 60 * 60 * 1000,
+    maxAge: 7 * 24 * 60 * 60 * 1000,
+    httpOnly: true,
+  },
+};
 
 // Middlewares
 app.set("view engine", "ejs");
@@ -16,6 +30,15 @@ app.use(express.json());
 app.use(methodOverride("_method"));
 app.engine("ejs", ejsMate);
 app.use(express.static(path.join(__dirname, "public")));
+app.use(cookieParser("mySpeacialKey"));
+app.use(flash());
+app.use(session(sessionOptions));
+
+app.use((req, res, next) => {
+  res.locals.success = req.flash("success");
+  res.locals.error = req.flash("error");
+  next();
+});
 
 // MongoDB connection
 main()
@@ -33,6 +56,7 @@ app.get("/", (req, res) => {
   res.send("Root route is working.");
 });
 
+// Routes
 app.use("/listings", listingsRoutes);
 app.use("/listings/:id/reviews", reviewsRoute);
 
