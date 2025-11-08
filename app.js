@@ -10,6 +10,9 @@ const reviewsRoute = require("./routes/reviewsRoutes.js");
 const cookieParser = require("cookie-parser");
 const session = require("express-session");
 const flash = require("express-flash");
+const User = require("./models/users.js");
+const passport = require("passport");
+const LocalStrategy = require("passport-local");
 
 const sessionOptions = {
   secret: "mySessionSecret",
@@ -33,6 +36,11 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use(cookieParser("mySpeacialKey"));
 app.use(flash());
 app.use(session(sessionOptions));
+app.use(passport.initialize());
+app.use(passport.session());
+passport.use(new LocalStrategy(User.authenticate()));
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
 
 app.use((req, res, next) => {
   res.locals.success = req.flash("success");
