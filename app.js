@@ -6,7 +6,8 @@ const methodOverride = require("method-override");
 const ejsMate = require("ejs-mate");
 const ExpressError = require("./utils/ExpressError.js");
 const listingsRoutes = require("./routes/listingsRoutes.js");
-const reviewsRoute = require("./routes/reviewsRoutes.js");
+const reviewsRoutes = require("./routes/reviewsRoutes.js");
+const usersRoutes = require("./routes/usersRoutes.js");
 const cookieParser = require("cookie-parser");
 const session = require("express-session");
 const flash = require("express-flash");
@@ -66,7 +67,8 @@ app.get("/", (req, res) => {
 
 // Routes
 app.use("/listings", listingsRoutes);
-app.use("/listings/:id/reviews", reviewsRoute);
+app.use("/listings/:id/reviews", reviewsRoutes);
+app.use("/", usersRoutes);
 
 // Invalid requests handler
 app.use((req, res, next) => {
