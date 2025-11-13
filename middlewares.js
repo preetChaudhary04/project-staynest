@@ -1,5 +1,7 @@
 const Listing = require("./models/listings.js");
 const Review = require("./models/reviews.js");
+const { reviewSchemaJoi } = require("./utils/schemaValidator.js");
+const ExpressError = require("./utils/ExpressError.js");
 
 module.exports.isLoggedIn = (req, res, next) => {
   if (!req.isAuthenticated()) {
@@ -35,4 +37,14 @@ module.exports.isReviewAuthor = async (req, res, next) => {
     return res.redirect(`/listings/${id}`);
   }
   next();
+};
+
+module.exports.validateReview = (req, res, next) => {
+  let { error } = reviewSchemaJoi.validate(req.body);
+  if (error) {
+    let errMsg = error.details.map((el) => el.message).join(",");
+    throw new ExpressError(400, errMsg);
+  } else {
+    next();
+  }
 };
