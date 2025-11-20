@@ -40,13 +40,10 @@ module.exports.createNewListing = async (req, res) => {
     throw new ExpressError(400, "Please fill in the required details.");
   if (!req.file) throw new ExpressError(400, "Image is required!");
   let url = req.file.path;
-  console.log(req.file);
   let filename = req.file.filename;
-  console.log(filename);
   const newListing = new Listing(req.body.listing);
   newListing.owner = req.user._id;
   newListing.image = { url, filename };
-  console.log(newListing);
   await newListing.save();
   req.flash("success", "Listing added successfully.");
   res.redirect("/listings");
@@ -66,8 +63,15 @@ module.exports.editListingForm = async (req, res) => {
 
 // Update Listing
 module.exports.updateListing = async (req, res) => {
+  let url, filename;
+  if (req.file) {
+    url = req.file.path;
+    filename = req.file.filename;
+  }
   let { id } = req.params;
-  await Listing.findByIdAndUpdate(id, { ...req.body.listing });
+  let listing = await Listing.findByIdAndUpdate(id, { ...req.body.listing });
+  listing.image = { url, filename };
+  await listing.save();
   req.flash("success", "Listing updated successfully.");
   res.redirect(`/listings/${id}`);
 };

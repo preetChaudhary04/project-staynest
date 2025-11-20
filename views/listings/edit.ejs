@@ -4,7 +4,8 @@
     <div class="row">
       <div class="col-6 offset-3">
         <h3 class="mt-2 mb-2">Edit your form</h3>
-        <form class="needs-validation" method="POST" action="/listings/<%= listing._id %>?_method=PUT" novalidate>
+        <form class="needs-validation" method="POST" action="/listings/<%= listing._id %>?_method=PUT" novalidate
+          enctype="multipart/form-data">
 
           <div>
             <label for="title" class="form-label fw-semibold">Enter title</label>
@@ -23,11 +24,8 @@
           </div>
 
           <div>
-            <label for="image" class="form-label fw-semibold">Enter Image link/URL</label>
-            <input class="form-control" type="text" name="listing[image]" value="<%= listing.image %>" required>
-            <div class="invalid-feedback">
-              You cannot leave this field blank while editing.
-            </div>
+            <label for="image" class="form-label fw-semibold">Upload Image</label>
+            <input class="form-control" type="file" name="listing[image]">
           </div>
 
           <div class="row">
