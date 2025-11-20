@@ -1,4 +1,8 @@
 const Listing = require("../models/listings");
+const ExpressError = require("../utils/ExpressError");
+if (process.env.NODE_ENV != "production") {
+  require("dotenv").config();
+}
 
 // Show all Listings
 module.exports.index = async (req, res) => {
@@ -34,9 +38,15 @@ module.exports.showListing = async (req, res) => {
 module.exports.createNewListing = async (req, res) => {
   if (!req.body)
     throw new ExpressError(400, "Please fill in the required details.");
+  if (!req.file) throw new ExpressError(400, "Image is required!");
+  let url = req.file.path;
+  console.log(req.file);
+  let filename = req.file.filename;
+  console.log(filename);
   const newListing = new Listing(req.body.listing);
-  console.log(req.user._id);
   newListing.owner = req.user._id;
+  newListing.image = { url, filename };
+  console.log(newListing);
   await newListing.save();
   req.flash("success", "Listing added successfully.");
   res.redirect("/listings");
